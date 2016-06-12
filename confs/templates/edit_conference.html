@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}
+Edit
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if conference.id %}
+    <h1>Edit Conference</h1>
+    {% else %}
+    <h1>Add Conference</h1>
+    {% endif %}
+<form action="{{action}}" method="POST">
+      {% csrf_token  %}
+      <ul>
+	    {{ form.as_ul }}
+      </ul>
+      <input id="save_conference" type="submit" value="Save" />
+</form>
+{% if conference.id %}
+    <a href="{% url 'delete-conference' pk=conference.id %}"><button class="btn-danger">Delete</button></a>
+{% endif %}
+<a href="{% url 'resent-confs' %}" class="button"><button>Back to list</button></a>
+<!--<a href="{% url 'resent-confs' %}" class="button">back to list</a>-->
+</div>
+{% endblock %}

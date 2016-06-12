@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="modal-title">Delete Message</h1>
+
+<p>Are you sure you want to delete the contact {{ message }}?</p>
+
+<form action="{% url 'delete-message' pk=message.id %}" method="POST">
+  {% csrf_token %}
+
+  <input type="submit" value="Yes, delete." />
+  <a href="{% url 'messages' %}">No, cancel.</a>
+</form>
+
+{% endblock %}

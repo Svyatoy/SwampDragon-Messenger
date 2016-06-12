@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title%}
+Profile
+{% endblock%}
+
+{% block content%}
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+    {% if conferences_listener %}
+        <p>Listened Conferences:</p>
+        <ul>
+        {% for conf in conferences_listener %}
+            <a href="{{ conf.get_absolute_url }}"><li>{{ conf.title }}</li></a>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+    {% if conferences_reporter %}
+        <p>Reported Conferences:</p>
+        <ul>
+        {% for conf in conferences_reporter %}
+            <a href="{{ conf.get_absolute_url }}"><li>{{ conf.title }}</li></a>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

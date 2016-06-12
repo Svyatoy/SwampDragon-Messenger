@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+Delete Company
+{% endblock %}
+{% block content %}
+
+<h1>Delete Company</h1>
+
+<p>Are you sure you want to delete the contact {{ company }}?</p>
+
+<form action="{% url 'delete-company' pk=company.id %}" method="POST">
+  {% csrf_token %}
+
+  <input type="submit" value="Yes, delete." />
+  <a href="{% url 'companies-list' %}">No, cancel.</a>
+</form>
+
+{% endblock %}

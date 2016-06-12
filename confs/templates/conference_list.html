@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}
+Conferences
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+<h1>Resent Conferences</h1>
+
+{% ifequal request.path '/conferences/' %}
+<p style="text-align: right"><a href="{% url 'archive-confs' %}">Archive</a></p>
+{% endifequal %}
+
+<ul class="list-group">
+	{% for conference in object_list %}
+        <li class="list-group-item">
+            <a href="{{ conference.get_absolute_url }}">
+                {{ conference }}
+            </a>
+            (<a href="{% url 'edit-conference' pk=conference.id %}">edit</a>)
+        </li>
+	{% endfor %}
+</ul>
+{% ifequal request.path '/conferences/' %}
+    {% if request.user.is_staff %}
+        <a href="{% url 'add-conference' %}"><button class="btn-success">Add conference</button></a>
+    {% endif %}
+{% endifequal %}
+</div>
+
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="{{conference.get_absolute_url}}?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="page-current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="{{conference.get_absolute_url}}?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+{% endblock %}

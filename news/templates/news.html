@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+News Detail
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ news.title }}</h1>
+
+<p>Description: {{ news.description }}</p>
+
+<p>Created: <strong>{{ news.ts_created }}</strong> </p>
+
+<p>Author: <strong>{{ news.author }}</strong></p>
+
+{% endblock %}

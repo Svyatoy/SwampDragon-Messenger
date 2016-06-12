@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ conference.title }}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ conference.title }}</h1>
+
+<p>Place: {{ conference.place }}</p>
+
+<p>Description: {{ conference.description }}</p>
+
+<p>Event date: {{ conference.event_date }}</p>
+
+<p>Deadline date: {{ conference.deadline }}</p>
+
+{% if conference.is_register_available %}
+    <button><a href="{% url 'conference-register' pk=conference.id %}">
+        Take Part</a></button>
+    <button><a href="{% url 'conference-subscribe' pk=conference.id %}">
+        Subscribe
+    </a></button>
+{% endif %}
+
+{% if conference.sponsors.all %}
+    <h2>Conference Sponsors</h2>
+    <ul>
+    {% for sponsor in conference.sponsors.all %}
+        <a href="/companies/{{sponsor.id}}"><li>{{ sponsor.name }}</li></a>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if conference.reporters.all %}
+    <h2>Conference Reporters</h2>
+    <ul>
+    {% for reporter in conference.reporters.all %}
+        <a href="/account/users/{{ reporter.id }}"><li>{{ reporter.username }}</li></a>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if conference.is_over %}
+
+    {% if conference.listeners.all %}
+        <h2>Conference Listeners</h2>
+        <ul>
+        {% for listener in conference.listeners.all %}
+            <a href="/account/users/{{ listener.id }}"><li>{{ listener.username }}</li></a>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+{% endif %}
+
+{% endblock %}

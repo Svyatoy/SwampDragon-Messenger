@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}
+{{ conference.title }}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="modal-title">Delete Conference</h1>
+
+<p>Are you sure you want to delete the contact {{ conference }}?</p>
+
+<form action="{% url 'delete-conference' pk=conference.id %}" method="POST">
+  {% csrf_token %}
+
+  <input type="submit" value="Yes, delete." />
+  <a href="{% url 'resent-confs' %}">No, cancel.</a>
+</form>
+
+{% endblock %}

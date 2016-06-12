@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+Edit
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if message.id %}
+    <h1>Edit Message</h1>
+    {% else %}
+    <h1>Add Message</h1>
+    {% endif %}
+<form action="{{action}}" method="POST">
+      {% csrf_token  %}
+	    {{ form.as_p }}
+      <input id="save_message" type="submit" value="Submit" />
+</form>
+<a href="/account/messages/" class="button"><button>Back to messanges</button></a>
+{% if message.id %}
+    <a href="{% url 'delete-message' pk=message.id %}"><button class="btn-danger">Delete</button></a>
+{% endif %}
+</div>
+{% endblock %}

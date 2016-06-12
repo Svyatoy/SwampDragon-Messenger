@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Company
+{% endblock %}
+{% block content %}
+
+<h1>{{ company.title }}</h1>
+
+<p>Name: {{ company.name }}</p>
+{% if company.thumbnail %}
+<img src="{{ company.thumbnail.url }}">
+{% endif %}
+<p>Email: {{ company.email }}</p>
+
+<p>Description: {{ company.description }}</p>
+
+<p>Created: {{ company.ts_created}}</p>
+{% if company.conf_sponsor.all %}
+    <p>Sponsor for: </p>
+    <ul>
+    {% for conference in company.conf_sponsor.all%}
+    <li><a href="/conferences/{{conference.id}}">{{ conference.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %}

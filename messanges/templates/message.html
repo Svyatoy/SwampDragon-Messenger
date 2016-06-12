@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}
+Message
+{% endblock %}
+
+{% block content %}
+<p>From: {{ message.sender }}</p>
+
+<p>To: {{ message.receiver }}</p>
+
+<p>Text: {{ message.text }}</p>
+
+<p>(<a href="{% url 'edit-message' pk=message.id %}">edit</a>)</p>
+<a href="/account/messages/" class="button"><button>Back to messanges</button></a>
+{% endblock %}

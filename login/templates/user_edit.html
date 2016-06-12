@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title%}
+Edit
+{% endblock%}
+
+{% block content%}
+    <h1>Edit User</h1>
+    <form action="{{action}}" method="POST">
+          {% csrf_token  %}
+          <ul>
+            {{ form.as_ul }}
+          </ul>
+          <input id="save_conference" type="submit" value="Save" />
+    </form>
+{% endblock %}

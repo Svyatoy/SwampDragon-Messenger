@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}
+News List
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+<h1>News</h1>
+{% if 'news_redactors' in user.groups.all.0.name or user.is_staff %}
+<a href="{% url 'add-news' %}"><button class="btn-success">Add news</button></a>
+{% endif %}
+<ul class="list-group">
+	{% for news in object_list %}
+        <li class="list-group-item">
+            <h4><a href="{{ news.get_absolute_url }}">
+                {{ news.title }}
+                </a>
+            </h4>
+            {% if 'news_redactors' in user.groups.all.0.name or user.is_staff %}
+                <p style="text-align: right">(<a href="{% url 'edit-news' pk=news.id %}">edit</a>)</p>
+            {% endif %}
+            <p> {{ news.description|slice:":100" }}... </p>
+            <br>
+            Published: <strong>{{ news.ts_created }}</strong> by {{ news.author }}
+        </li>
+	{% endfor %}
+</ul>
+
+</div>
+
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="{{news.get_absolute_url}}?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="page-current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="{{news.get_absolute_url}}?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+
+{% endblock %}
+

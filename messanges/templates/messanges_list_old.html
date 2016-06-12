@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title%}
+Messanges
+{% endblock%}
+
+{% block content%}
+<a href="{% url 'add-message' %}"><button class="btn-success">Write message</button></a>
+{% for message in object_list %}
+        <li class="list-group-item">
+            <h4>
+                {% if message.read %}
+                    <strong>
+                    {{ message.ts_created|timesince}} ago:
+                    {{ message.sender }} to {{ message.receiver }}:
+                    <a href="{{ message.get_absolute_url }}">
+                        "{{ message.text|slice:":20" }}..."
+                    </a>
+                    </strong>
+                {% else %}
+                    {{ message.ts_created|timesince}} ago:
+                    {{ message.sender }} to {{ message.receiver }}:
+                    <a href="{{ message.get_absolute_url }}">
+                        "{{ message.text|slice:":20" }}..."
+                    </a>
+                {% endif %}
+            </h4>
+        </li>
+{% endfor %}
+{% endblock%}

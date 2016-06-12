@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}
+Companies List
+{% endblock %}
+{% block content %}
+<div class="container">
+
+<h1>Companies</h1>
+
+<ul class="list-group">
+	{% for company in object_list %}
+        <li class="list-group-item">
+            <a href="{{ company.get_absolute_url }}">
+                {{ company }}
+            </a>
+            (<a href="{% url 'edit-company' pk=company.id %}">edit</a>)
+        </li>
+	{% endfor %}
+</ul>
+
+<a href="{% url 'add-company' %}"><button class="btn-success">Add company</button></a>
+</div>
+
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="page-links">
+            {% if page_obj.has_previous %}
+                <a href="{{company.get_absolute_url}}?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="page-current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="{{company.get_absolute_url}}?page={{ page_obj.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
+{% endblock %}

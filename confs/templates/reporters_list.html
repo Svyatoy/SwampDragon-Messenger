@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}
+Reporters
+{% endblock %}
+{% block content %}
+
+<div class="container">
+
+<h1>Reporters</h1>
+
+<ul class="list-group">
+	{% for reporter in object_list %}
+        <li class="list-group-item">
+                {{ reporter }}
+        </li>
+	{% endfor %}
+</ul>
+</div>
+
+{% endblock %}

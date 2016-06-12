@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+Company manage
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    {% if company.id %}
+    <h1>Edit Company</h1>
+    {% else %}
+    <h1>Add Company</h1>
+    {% endif %}
+<form action="{{action}}" method="POST">
+      {% csrf_token  %}
+      <ul>
+	    {{ form.as_ul }}
+      </ul>
+      <input id="save_company" type="submit" value="Save" />
+</form>
+{% if company.id %}
+    <a href="{% url 'delete-company' pk=company.id %}"><button class="btn-danger">Delete</button></a>
+{% endif %}
+<a href="{% url 'companies-list' %}" class="button"><button>Back to list</button></a>
+<!--<a href="{% url 'resent-confs' %}" class="button">back to list</a>-->
+</div>
+{% endblock %}
